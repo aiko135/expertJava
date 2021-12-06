@@ -5,13 +5,13 @@
  */
 package my.ktepin.expertjava.app.view;
 
-import my.ktepin.expertjava.app.interfaces.IMainView;
+import my.ktepin.expertjava.app.presenter.IMainScreenView;
 
 /**
  *
  * @author ktepin
  */
-public class MainForm extends javax.swing.JFrame implements IMainView {
+public class MainForm extends javax.swing.JFrame implements IMainScreenView {
 
     /**
      * Creates new form MainForm
@@ -29,23 +29,138 @@ public class MainForm extends javax.swing.JFrame implements IMainView {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Экспертная система Clojure");
+        setPreferredSize(new java.awt.Dimension(700, 400));
+        setResizable(false);
+
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        jLabel1.setText("Ожидание...");
+
+        jButton1.setText("Начать новую консультацию");
+        jButton1.setActionCommand("New");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("    Да    ");
+        jButton2.setActionCommand("buttonYes    ");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("   Нет  ");
+        jButton3.setActionCommand("buttonNo");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        jLabel2.setText("Экспертная система Clojure");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(128, 128, 128)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addGap(58, 58, 58)
+                        .addComponent(jButton3))
+                    .addComponent(jButton1)
+                    .addComponent(jLabel1))
+                .addContainerGap(255, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel2)
+                .addGap(31, 31, 31)
+                .addComponent(jButton1)
+                .addGap(50, 50, 50)
+                .addComponent(jLabel1)
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        jButton2.setEnabled(true);
+        jButton3.setEnabled(true);
+        if(this.onStartHandler != null)
+            this.onStartHandler.handleClick();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if(this.onAnswerHandler != null)
+           this.onAnswerHandler.handleAnswer(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       if(this.onAnswerHandler != null)
+           this.onAnswerHandler.handleAnswer(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
+
+    //CUSTOM CODE
+    private OnClickStartEventHandler onStartHandler;
+    private OnAnswerEventHandler onAnswerHandler;
+    
+    @Override
+    public void addStartListener(OnClickStartEventHandler handler) {
+        this.onStartHandler = handler;
+    }
+    @Override
+    public void addAnswerListener(OnAnswerEventHandler handler) {
+        this.onAnswerHandler = handler;
+    }
+
+    @Override
+    public void displayDialogText(String text) {
+        jLabel1.setText(text + "?");
+    }
+
+    @Override
+    public void displayNotFound() {
+        jLabel1.setText("Искомый предмет не найден.");
+        jButton2.setEnabled(false);
+        jButton3.setEnabled(false);
+    }
+
+    @Override
+    public void displayResult(String result) {
+        jLabel1.setText("Найденый предмет: "+result);
+        jButton2.setEnabled(false);
+        jButton3.setEnabled(false);
+    }
 }
+    
