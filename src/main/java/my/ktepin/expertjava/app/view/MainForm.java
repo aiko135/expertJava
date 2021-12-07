@@ -75,7 +75,7 @@ public class MainForm extends javax.swing.JFrame implements IMainScreenView {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(128, 128, 128)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
@@ -84,7 +84,7 @@ public class MainForm extends javax.swing.JFrame implements IMainScreenView {
                         .addComponent(jButton3))
                     .addComponent(jButton1)
                     .addComponent(jLabel1))
-                .addContainerGap(255, Short.MAX_VALUE))
+                .addContainerGap(443, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
